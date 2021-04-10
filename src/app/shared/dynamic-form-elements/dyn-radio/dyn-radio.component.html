@@ -1,0 +1,22 @@
+<div [formGroup]="form" >
+  <div class="form-group">
+      <h4 class="m-0">
+        {{ config.label }}
+      </h4>
+      <mat-radio-group
+        [ngClass]="{ 'pile': config.pile }"
+        color="primary"
+        [labelPosition]="config.orientation || 'before'"
+        [name]="config.formControl"
+        [formControlName]="config.formControl"
+        (change)="handleEvent()">
+        <mat-radio-button *ngFor="let option of config.options"
+          [value]="option.value"
+          [disabled]="option.disabled"
+          [ngClass]="{'bordered': config.bordered }"
+          >
+          {{ option.label }}
+        </mat-radio-button>
+      </mat-radio-group>
+  </div>
+</div>

@@ -1,0 +1,39 @@
+<mat-toolbar class="navigator" cdkScrollable>
+  <button mat-icon-button class="navigator__display">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <h4 class="navigator__display">
+    ES<span class="navigator__display-green"> K A I </span>
+  </h4>
+  <div class="navigator__action-container">
+    <button mat-icon-button class="navigator__display" (click)="fadeTransition( true )" *ngIf="!showSearch">
+      <mat-icon>search</mat-icon>
+    </button>
+    <button mat-icon-button class="navigator__display">
+      <mat-icon>person</mat-icon>
+    </button>
+  </div>
+</mat-toolbar>
+<div class="search-form px-3" *ngIf="showSearch" [ngClass]="fade">
+  <form [formGroup]="form" (submit)="submit()">
+    <mat-form-field appearance="outline" class="w-100 w-sm-50">
+      <button mat-icon-button matPrefix (click)="fadeTransition( false )">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <button mat-icon-button matSuffix>
+        <mat-icon>search</mat-icon>
+      </button>
+      <input matInput
+      formControlName="search"
+      placeholder="Busca por marca o modelo de moto"
+      [matAutocomplete]="auto"
+      >
+
+      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="submit()">
+        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+          {{option}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </form>
+</div>

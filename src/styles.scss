@@ -1,0 +1,66 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 200vh; }
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background: #000;
+  font-size: 15px;
+  color: hsla(0,0%,100%,.85);
+  letter-spacing: .5px;
+  background-size: 100% 100%;
+  background-attachment: fixed;
+  background-position: 50%;
+  background-repeat: no-repeat;
+  transition: background .3s;
+  background-image: linear-gradient(black, gray, white);
+}
+mat-label{ color: #adadad !important; }
+.mat-focused .placeholder { color: #00D318; }
+input::placeholder { color: #fff !important; }
+
+mat-form-field {
+  width: 100% !important;
+  font-size: 12px !important;
+}
+
+
+.mat-form-field-appearance-outline .mat-form-field-outline {
+  color: white !important;
+}
+
+.fadeIn {
+	opacity: 1;
+	animation-name: fadeInOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-duration: 0.5s;
+}
+
+@keyframes fadeInOpacity {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+.fadeOut {
+	opacity: 1;
+	animation-name: fadeOutOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-duration: 1s;
+}
+
+@keyframes fadeOutOpacity {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+
+

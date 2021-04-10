@@ -1,0 +1,65 @@
+<div [formGroup]="form" >
+  <div class="form-group">
+    <mat-form-field
+    appearance="outline"
+    >
+      <mat-label>
+        {{ config.label }}
+      </mat-label>
+
+
+      <input matInput
+        type="text"
+        [placeholder]="config.placeholder"
+        [formControlName]="config.formControl"
+        (blur)="handleEvent( config.formControl, 'blur' )"
+        (keyup)="handleEvent( config.formControl, 'keyup' )"
+      >
+      <mat-icon matSuffix
+        *ngIf="config.suffixIcon"
+        [ngClass]="{'pointer': config.emitSuffix, 'active': suffixControl}"
+        (click)="suffixHandler()"
+        >
+        {{ config.suffixIcon }}
+      </mat-icon>
+
+      <span matSuffix *ngIf="config.rawSuffix" class="font-size-12">
+        {{ config.rawSuffix }}
+      </span>
+      <span matPrefix *ngIf="config.rawPrefix" class="font-size-12">
+        {{ config.rawPrefix }}
+      </span>
+
+      <mat-icon matPrefix
+        *ngIf="config.prefixIcon"
+        [ngClass]="{'pointer': config.emitPrefix}"
+      >
+        {{ config.prefixIcon }}
+      </mat-icon>
+
+      <mat-hint *ngIf="config.hint">
+        {{config.hint}}
+      </mat-hint>
+      <mat-error *ngIf="config.errors">
+        <ng-container *ngIf="form.controls[ config.formControl ].errors?.required">
+          {{ config.errors.required }}
+        </ng-container>
+        <ng-container *ngIf="form.controls[ config.formControl ].errors?.pattern">
+          {{ config.errors.number }}
+          {{ config.errors.password }}
+        </ng-container>
+        <ng-container *ngIf="form.controls[ config.formControl ].errors?.maxlength">
+          {{ config.errors.maxLength.split(',')[1] }}
+        </ng-container>
+        <ng-container *ngIf="form.controls[ config.formControl ].errors?.minlength">
+          {{ config.errors.minLength.split(',')[1] }}
+        </ng-container>
+        <ng-container *ngIf="form.controls[ config.formControl ].errors?.email">
+          {{ config.errors.email }}
+        </ng-container>
+      </mat-error>
+
+    </mat-form-field>
+  </div>
+</div>
+
