@@ -1,5 +1,11 @@
-<navigator></navigator>
 <div class="container">
-  <router-outlet></router-outlet>
+  <dynamic-form
+    [dynConfig]="dynConfig"
+    (dynEvent)="eventOccur( $event )"
+    (dynSubmitEvent)="formSubmmited( $event )"
+    (form)="getForm( $event )"
+    (dynChangeForm)="formChanged( $event )">
+  </dynamic-form>
+
 </div>
 

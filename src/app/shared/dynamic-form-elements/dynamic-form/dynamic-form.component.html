@@ -1,58 +1,46 @@
+<form [formGroup]="_form" (ngSubmit)="submit()">
+  <div class="row mt-2" [ngClass]="dynConfig.rowClass">
 
-  <div class="row">
-    <div class="col-12">
-      <h3 class="title">
-        {{ title }}
-      </h3>
+    <div *ngFor="let input of dynConfig.inputs" [ngClass]="(input.columnClass || columnClass)" class="mt-1">
+      <ng-container *ngIf="input.meta === 'dynradio'">
+        <dyn-radio
+          [config]="input"
+          [form]="_form"
+          (dynEvent)="releaseEvent( $event )"></dyn-radio>
+      </ng-container>
+
+      <ng-container *ngIf="input.meta === 'dyninput'">
+        <dyn-input
+          [config]="input"
+          [form]="_form"
+          (dynEvent)="releaseEvent( $event )"></dyn-input>
+      </ng-container>
+      <ng-container *ngIf="input.meta === 'dynselect'">
+        <dyn-select
+          [config]="input"
+          [form]="_form"
+          (dynEvent)="releaseEvent( $event )"></dyn-select>
+      </ng-container>
+      <ng-container *ngIf="input.meta === 'dyntextarea'">
+        <dyn-textarea
+          [config]="input"
+          [form]="_form"
+          (dynEvent)="releaseEvent( $event )"></dyn-textarea>
+      </ng-container>
     </div>
   </div>
-
-  <mat-divider *ngIf="title"></mat-divider>
-
-
-  <form [formGroup]="form" (ngSubmit)="submit()">
-    <div class="row mt-2" [ngClass]="rowClass">
-
-      <div *ngFor="let input of inputs" [ngClass]="(input.columnClass || columnClass)" class="mt-1">
-        <ng-container *ngIf="input.meta === 'dynradio'">
-          <dyn-radio
-            [config]="input"
-            [form]="form"
-            (dynEvent)="releaseEvent( $event )"></dyn-radio>
-        </ng-container>
-
-        <ng-container *ngIf="input.meta === 'dyninput'">
-          <dyn-input
-            [config]="input"
-            [form]="form"
-            (dynEvent)="releaseEvent( $event )"></dyn-input>
-        </ng-container>
-        <ng-container *ngIf="input.meta === 'dynselect'">
-          <dyn-select
-            [config]="input"
-            [form]="form"
-            (dynEvent)="releaseEvent( $event )"></dyn-select>
-        </ng-container>
-        <ng-container *ngIf="input.meta === 'dyntextarea'">
-          <dyn-textarea
-            [config]="input"
-            [form]="form"
-            (dynEvent)="releaseEvent( $event )"></dyn-textarea>
-        </ng-container>
-      </div>
+  <div class="row mt-1" *ngIf="dynConfig.button?.show">
+    <div class="col-12 col-sm-4 offset-sm-4">
+      <button
+        mat-raised-button
+        type="submit"
+        class="w-100"
+        [ngClass]="dynConfig.button.class"
+        [disabled]="_form.invalid"
+        [color]="dynConfig.button.color || 'primary'">
+        {{ dynConfig.button.label || 'Enviar' }}
+      </button>
     </div>
-    <div class="row mt-1" *ngIf="button.show">
-      <div class="col-12 col-sm-4 offset-sm-4">
-        <button
-          mat-raised-button
-          type="submit"
-          class="w-100"
-          [ngClass]="button.class"
-          [disabled]="form.invalid"
-          [color]="button.color || 'primary'">
-          {{ button.label || 'Enviar' }}
-        </button>
-      </div>
-    </div>
-  </form>
+  </div>
+</form>
 

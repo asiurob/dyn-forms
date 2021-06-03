@@ -34,11 +34,11 @@ export class DynInputComponent {
     this.timer = setTimeout( () => {
       const value = this.form.value[ control ];
       if ( this.config.emitBlur && event === 'blur' ) {
-        this.dynEvent.emit( { value, control } );
+        this.dynEvent.emit( { value, control, event: 'blur' } );
       }
 
       if ( this.config.emitKeyup && event === 'keyup' ) {
-        this.dynEvent.emit( { value, control } );
+        this.dynEvent.emit( { value, control, event: 'keyup' } );
       }
     }, delay );
   }

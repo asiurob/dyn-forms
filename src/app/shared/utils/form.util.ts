@@ -8,15 +8,17 @@ export class DynFormBuilder {
         this.innerForm = new FormGroup({});
     }
 
-    addControls( controls: any[] | any ): void {
+    public addControls( controls: any[] | any ): void {
 
         Array.isArray( controls ) ?
         controls.map( control => this.buildControl( control ) ) :
         this.buildControl( controls );
     }
 
-    enableControl( identifier: string ): void {
-        this.innerForm.get( identifier ).enable();
+    public toggleControl( identifier: string, enable: boolean ): void {
+        enable ?
+        this.innerForm.get( identifier ).enable() :
+        this.innerForm.get( identifier ).disable();
         this.innerForm.get( identifier ).updateValueAndValidity();
     }
 

@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { DynButton } from '@interfaces/dyn-button.interface';
 import { DynFormBuilder } from '@utils/form.util';
 import { Subscription } from 'rxjs';
+import { DynFormConfig } from './dynamic-form.interface';
 
 @Component({
   selector: 'dynamic-form',
@@ -11,37 +11,30 @@ import { Subscription } from 'rxjs';
 })
 export class DynamicFormComponent implements OnInit, OnDestroy {
 
-  @Input() showCard = '';
-  @Input() inputs: any = [];
-  @Input() button: DynButton;
-  @Input() rowClass: string;
-  @Input() title: string;
+
+  @Input() dynConfig: DynFormConfig;
   @Output() dynEvent: EventEmitter<any> = new EventEmitter<any>();
-  @Output() submitEvent: EventEmitter<any> = new EventEmitter<any>();
-  @Output() changeForm: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
+  @Output() dynSubmitEvent: EventEmitter<any> = new EventEmitter<any>();
+  @Output() dynChangeForm: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
+  @Output() form: EventEmitter<DynFormBuilder> = new EventEmitter<DynFormBuilder>();
 
-  form: FormGroup;
+  _form: FormGroup;
   dynForm = new DynFormBuilder();
-  columnClass = 'col-12 col-md-4';
-  subs: Subscription[] = [];
+  columnClass = 'col-12';
+  valueChangesSub: Subscription;
 
-  constructor() {
-  }
+  constructor() { }
 
-  ngOnDestroy(): void { this.subs.map( s => s.unsubscribe() ); }
+  ngOnDestroy(): void { this.valueChangesSub.unsubscribe(); }
 
   ngOnInit(): void {
-    this.inputs.map( ( i: any ) => this.dynForm.addControls( i ) );
-    this.form = this.dynForm.innerForm;
+    this.dynConfig.inputs.map( ( i: any ) => this.dynForm.addControls( i ) );
+    this._form = this.dynForm.innerForm;
+    this.form.emit( this.dynForm );
 
-    if ( this.button.emitForm ) {
-      const s = this.form.valueChanges
-      .subscribe( () => {
-        this.changeForm.emit( this.form );
-      });
-
-      this.subs.push( s );
-
+    if ( this.dynConfig.emitForm ) {
+      this.valueChangesSub = this._form.valueChanges
+      .subscribe( _ => this.dynChangeForm.emit( this._form ) );
     }
   }
 
@@ -50,7 +43,7 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
   }
 
   submit(): void {
-    this.submitEvent.emit( this.form );
+    this.dynSubmitEvent.emit( this._form );
   }
 
 }

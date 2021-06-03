@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ToastrModule } from 'ngx-toastr';
 import { AppRoutingModule } from './app-routing.module';
-import { NavigatorModule } from '@components/navigator/navigator.module';
-import {ScrollingModule, ScrollDispatcher} from '@angular/cdk/scrolling';
+
+import { DynamicFormModule } from '@dyn-forms/dynamic-form/dynamic-form.module';
 
 @NgModule({
   declarations: [
@@ -15,12 +15,9 @@ import {ScrollingModule, ScrollDispatcher} from '@angular/cdk/scrolling';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    ScrollingModule,
     AppRoutingModule,
-    NavigatorModule,
-    ToastrModule.forRoot()
+    DynamicFormModule
   ],
-  providers: [ ScrollDispatcher ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

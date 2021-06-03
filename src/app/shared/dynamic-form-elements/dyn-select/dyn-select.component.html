@@ -3,8 +3,8 @@
     <mat-form-field appearance="outline" class="font-size-8">
       <mat-label>{{config.label}}</mat-label>
       <mat-select [formControlName]="config.formControl" (selectionChange)="handleEvent()">
-        <mat-option *ngFor="let option of config.options" [value]="option.value" [disabled]="option.disabled">
-          {{ option.label }}
+        <mat-option *ngFor="let option of config.options" [value]="option.key" [disabled]="option.disabled">
+          {{ option.value }}
         </mat-option>
       </mat-select>
 

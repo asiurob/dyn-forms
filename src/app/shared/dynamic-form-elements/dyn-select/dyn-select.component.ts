@@ -19,7 +19,7 @@ export class DynSelectComponent {
     if ( this.config.emitChange ) {
       const control = this.config.formControl;
       const value = this.form.value[ control ];
-      this.dynEvent.emit( { value, control } );
+      this.dynEvent.emit( { value, control, event: 'change' } );
     }
   }
 

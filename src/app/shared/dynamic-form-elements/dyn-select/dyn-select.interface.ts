@@ -6,6 +6,7 @@ export interface DynSelect {
     formControl: string; // Es el nombre que llevará el control dentro del formulario reactivo
     options: DynSelectOptions[]; // Opciones que se ciclarán en el select
     disabled?: boolean; // Si se puede interactuar con el input
+    columnClass?: string; // Esta clase se agregará como grid de boostrap
     value?: string;  // El valor que tendrá el input por defecto
     emitChange?: boolean; // Si cuando se cambie la selección el elemento emitirá el evento y valor
     hint?: string; // Si llevará un texto de auida el select
@@ -13,7 +14,7 @@ export interface DynSelect {
 }
 
 interface DynSelectOptions {
-    value: string; // Valor para programación
-    label: string; // Etiqueta para UX
+    key: string; // Valor para programación
+    value: string; // Etiqueta para UX
     disabled?: boolean; // Si se puede elegir la opción
 }
